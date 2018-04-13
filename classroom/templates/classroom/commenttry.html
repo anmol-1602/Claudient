@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>comment</h1>
+
+<form method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+     
+    
+    <button type="submit">submit</button>
+  </form>
+
+
+
+</body>
+</html>
+
+

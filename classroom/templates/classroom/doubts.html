@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>dasdsder</h1>
+
+
+{% for eachdoubt in doubts %}
+<h3>{{ eachdoubt.subject }}</h3>
+{% endfor %}
+<form method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+     
+    
+    <button type="submit">submit</button>
+  </form>
+
+
+</body>
+</html>
+

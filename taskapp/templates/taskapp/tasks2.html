@@ -1,0 +1,189 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+<!-- <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script> -->
+<script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<link rel="canonical" href="https://codepen.io/dishantsoni/pen/pgVeQW?limit=all&page=46&q=draggable" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
+    
+<title></title>
+</head>
+<body>
+
+<link rel="stylesheet" type="text/css" href="{% static 'taskapp/mytasks.css' %}">
+
+<h1>hello  {{ user.username}}</h1>
+
+<h3>here are your tasks</h3>
+
+<!-- <h1>INCOMPLETE</h1>
+
+{% for eachtask in complete %}
+
+<h3>{{ eachtask.content}} -- dqdd -- pr {{ eachtask.priority}} --  id {{  eachtask.id}} -- <a href="{% url 'taskapp:movedown' eachtask.priority %}"> <span class="glyphicon glyphicon-chevron-down"></span></a> 
+<a href="{% url 'taskapp:moveup' eachtask.priority %}"> <span class="glyphicon glyphicon-chevron-up"></span></a>
+<a href="{% url 'taskapp:complete' eachtask.id %}"> <span class="	glyphicon glyphicon-ok"></span></a>  </h3>
+<div><a href="{{ eachtask.upload.url }}">{{ eachtask.upload }}</a></div>
+<div><img src="{{ eachtask.upload.url }}"></div>
+{% endfor %}
+
+
+
+
+<h1>COMPLETE</h1>
+
+
+{% for eachtask in incomplete %}
+
+<h3>{{ eachtask.content}} -- dqdd -- {{ eachtask.priority}} --  {{  eachtask.id}} -- </h3>
+
+{% endfor %} -->
+
+<header class="page-title">
+<h1>  <i class="material-icons"></i>
+TODO</h1>
+
+<section class="todo-list-container">
+<div class="todo-in-progress">
+<h2> Working tasks</h2>
+<ul ondragstart="" class="todo-list" id="target">
+
+{% for eachtask in complete %}
+
+<li draggable="true" class="todo-item high">
+<div class="card">
+
+<h3 class="todo-title"> 
+<span class="action">
+<i class="material-icons md-36 icon-delete">delete</i>
+<a href="{% url 'taskapp:complete' eachtask.id %}"> <span class="	glyphicon glyphicon-ok"></span></a> 
+<i class="icon-checkbox-outline material-icons md-36 md-dark">check_box_outline_blank</i>
+<i class="icon-checkbox material-icons md-36 md-light">check_box</i>
+</span> 
+<span class="title">Learn React </span></h3>
+
+<p class="todo-description">
+
+Build great modularize javascript apps with React JS. </p>
+<span class="todo-priority"> High </span>
+
+
+
+</div>
+
+</li>
+{% endfor %}
+
+
+<li class="todo-item new">
+<div class="card">
+
+<h3 class="todo-title"> <span class="action">
+<i class="complete material-icons md-36 md-light">add_circle_outline</i>
+</span> 
+<a class="title" href="#">ADD A TODO</a></h3>
+
+</div>
+
+</li>
+
+
+</ul>
+</div>
+</section>
+
+<div class="todo-completed">
+	<ul class="todo-list-completed">
+		<h2> Completed Tasks </h2>
+			<li class="todo-item high">
+				<div class="icon-check">
+					<i class="pad-15 material-icons md-36 md-light">check_circle</i>
+				</div>
+
+				<div class="icon-delete">
+				<i class="pad-15 material-icons md-36 md-light">delete</i>
+				</div>
+
+				<div class="content">
+				Learn React
+				</div>
+			</li>
+
+			<li class="todo-item medium">
+			<div class="icon-check">
+			<i class="pad-15 material-icons md-36 md-light">check_circle</i>
+			</div>
+			<div class="icon-delete">
+			<i class="pad-15 material-icons md-36 md-light">delete</i>
+			</div>
+			<div class="content">
+			Learn React
+			</div>
+			</li>
+
+
+			{% for eachtask in incomplete %}
+			<li class="todo-item high">
+				<div class="icon-check ">
+					<i class="pad-15 material-icons md-36 md-light">check_circle</i>
+				</div>
+
+				<div class="icon-delete">
+				<i class="pad-15 material-icons md-36 md-light">delete</i>
+				</div>
+
+				<div class="content">
+				<h3>{{ eachtask.content}} -- dqdd -- {{ eachtask.priority}} --  {{  eachtask.id}} -- </h3>
+				</div>
+			</li>
+
+
+		{% endfor %}
+
+	</ul>
+
+</div>
+
+
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+
+<form enctype="multipart/form-data" method="POST" >
+{% csrf_token %}
+{{ form.as_p }}
+{{ profile_form.as_p}} -->
+<!--<button type="submit">upload</button>
+
+</form>
+
+</body>
+</html> -->
+
+
+

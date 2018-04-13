@@ -1,0 +1,48 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>chat index </title>
+</head>
+<body>
+
+<h1>this is index page of chat app </h1>
+
+<ul class="rooms">
+        {% for room in rooms %}
+            <li class="room-link" data-room-id="{{ room.id }}">{{ room }}</li>
+        {% empty %}
+            <p class="empty">No chat rooms defined. Maybe make some in the <a href="{% url 'admin:index' %}">admin</a>?</p>
+        {% endfor %}
+    </ul>
+
+    <div id="chats">
+    </div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
+    <script src="{% static "chat/main.js" %}"></script>
+
+    <script type="text/javascript">
+    	
+    	$(function () {
+    // Correctly decide between ws:// and wss://
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var ws_path = ws_scheme + '://' + window.location.host + "/chat";
+    console.log("Connecting to " + ws_path);
+    var socket = new WebSocket(ws_path);
+
+    // Helpful debugging
+    socket.onopen = function () {
+        console.log("Connected to chat socket");
+    };
+    socket.onclose = function () {
+        console.log("Disconnected from chat socket");
+    }
+});
+
+    </script>
+</body>
+</html>

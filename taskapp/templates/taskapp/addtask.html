@@ -1,0 +1,354 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+
+<form enctype="multipart/form-data" method="POST" >
+{% csrf_token %}
+{{ form.as_p }}
+{{ profile_form.as_p}} -->
+<!--<button type="submit">upload</button>
+
+</form>
+
+</body>
+</html> -->
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+<!-- <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script> -->
+<script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<link rel="canonical" href="https://codepen.io/dishantsoni/pen/pgVeQW?limit=all&page=46&q=draggable" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
+
+
+<title></title>
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'taskapp/mytasks.css' %}">
+</head>
+<body>
+
+
+<h1>complete</h1>
+{% for eachtask in complete %}
+
+<h2>{{ eachtask.content }} </h2>
+ <a href=""> <i class="pad-15 material-icons md-36 md-light">delete</i>  </a>
+<a href="{% url 'taskapp:moveup' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_less</i></a>
+<a href="{% url 'taskapp:movedown' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_more</i></a>
+<a href="{% url 'taskapp:incomplete' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">close</i></a>
+
+
+{{ eachtask.pub_date}}
+<br>
+{% endfor %}
+<br>
+<hr>
+
+<h1>incomplete</h1>
+{% for eachtask in incomplete %}
+
+<h2>{{ eachtask.content }}</h2>
+ <a href=""> <i class="pad-15 material-icons md-36 md-light">delete</i>  </a>
+<a href="{% url 'taskapp:moveup' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_less</i></a>
+<a href="{% url 'taskapp:movedown' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_more</i></a>
+<a href="{% url 'taskapp:complete' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">check</i></a>
+
+
+
+        
+{{ eachtask.pub_date }}
+<div>{{ eachtask.upload }}</div>
+
+
+<div class="container">
+  <h2>edit task</h2>
+  <button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#popUpWindow">open popup</button>
+  <div class="modal fade" id="popUpWindow" role="dialog"> 
+    <div class="modal-dialog">
+      <div class="model-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div> 
+
+        <div class="modal-body">
+          <div class="form-group">
+            <form role="form" enctype="multipart/form-data" method="POST" action="{% url 'taskapp:edittask' eachtask.id %}">
+              {% csrf_token %}
+              {{ form.as_p }}
+            
+              <button type="submit" class="btn btn-primary btn-block">submit</button>
+            </form>
+          </div>
+        </div >
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+<header class="page-title">
+<h1>  <i class="material-icons"></i>
+TODO</h1>
+<div class="tag"> An easy way to manage your work. <span class="caret">|</span></div>
+</header>
+
+<main role="main" class="main-wrap hidden">
+
+<header role="heading" class="header">
+<h1 class="app-header"> Add your task </h1>
+</header>
+
+<section class="main-content">
+<section class="todo-form">
+
+<form role="form" id="todoForm">
+<div class="row">
+<label for="title"> Title </label>
+<input class="form-input" id="title" type="text" placeholder="Learn JavaScript" />
+</div>
+
+<div class="row">
+<label for="description"> Description </label>
+<textarea id="description" rows="4" cols="30" placeholder="Coz you already know Java"></textarea>
+</div>
+
+<div class="row">
+<label for="priority"> Priority </label>
+<select id="priority">
+<option value="high">High</option>
+<option value="med">Medium</option>
+<option value="low">Low</option>
+</select>
+</div>
+
+<div class="row submit-btn">
+<input type="submit" class="primary-button" value="DO IT" />
+</div>
+</form>
+
+</section>
+
+
+</section>
+</main>
+
+<section class="todo-list-container">
+<div class="todo-in-progress">
+<h2> Working tasks</h2>
+<ul ondragstart="" class="todo-list" id="target">
+
+<li draggable="true" class="todo-item high">
+<div class="card">
+
+<h3 class="todo-title"> <span class="action">
+<i class="material-icons md-36 icon-delete">delete</i>
+<i class="icon-checkbox-outline material-icons md-36 md-dark">check_box_outline_blank</i>
+<i class="icon-checkbox material-icons md-36 md-light">check_box</i>
+</span> 
+<span class="title">Learn React </span></h3>
+
+<p class="todo-description">
+
+Build great modularize javascript apps with React JS. </p>
+<span class="todo-priority"> High </span>
+
+</div>
+
+</li>
+
+{% for eachtask in complete %}
+
+<li>
+<h2>{{ eachtask.content }} </h2>
+ <a href=""> <i class="pad-15 material-icons md-36 md-light">delete</i>  </a>
+<a href="{% url 'taskapp:moveup' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_less</i></a>
+<a href="{% url 'taskapp:movedown' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_more</i></a>
+<a href="{% url 'taskapp:incomplete' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">close</i></a>
+
+{{ eachtask.pub_date}}
+
+<br>
+</li>
+{% endfor %}
+
+
+<li class="todo-item new">
+<div class="card">
+
+<h3 class="todo-title"> <span class="action">
+<i class="complete material-icons md-36 md-light">add_circle_outline</i>
+</span> 
+<a class="title" href="#">ADD A TODO</span></h3>
+
+</div>
+
+</li>
+
+
+</ul>
+</div>
+
+<div class="todo-completed">
+<ul class="todo-list-completed">
+<h2> Completed Tasks </h2>
+<li class="todo-item high">
+<div class="icon-check">
+<i class="pad-15 material-icons md-36 md-light">check_circle</i>
+</div>
+
+<div class="icon-delete">
+<i class="pad-15 material-icons md-36 md-light">delete</i>
+</div>
+<div class="content">
+Learn React
+</div>
+</li>
+<li class="todo-item medium">
+<div class="icon-check">
+<i class="pad-15 material-icons md-36 md-light">check_circle</i>
+</div>
+<div class="icon-delete">
+<i class="pad-15 material-icons md-36 md-light">delete</i>
+</div>
+<div class="content">
+Learn React
+</div>
+</li>
+<li class="todo-item low">
+<div class="icon-check">
+<i class="pad-15 material-icons md-36 md-light">check_circle</i>
+</div>
+
+<div class="icon-delete">
+<i class="pad-15 material-icons md-36 md-light">delete</i>
+</div>
+<div class="content">
+Learn React
+</div>
+</li>
+</ul>
+</div>
+</section>
+
+<div class="container">
+	<h2>modal eg</h2>
+	<button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#popUpWindow">open popup</button>
+
+	<div class="modal fade" id="popUpWindow" role="dialog"> 
+		<div class="modal-dialog">
+			<div class="model-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div> 
+
+				<div class="modal-body">
+					<div class="form-group">
+						<form role="form" enctype="multipart/form-data" method="POST" >
+							{% csrf_token %}
+							{{ form.as_p }}
+							{{ profile_form.as_p}} 
+							<button type="submit" class="btn btn-primary btn-block">upload</button>
+						</form>
+					</div>
+				</div >
+
+				<div class="modal-footer">
+					<button class="btn btn-primary btn-block">login</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+  <h2>Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+
+<div class="container">
+  <h3>Tooltip Example</h3>
+  <p>The data-placement attribute specifies the tooltip position.</p>
+  <ul class="list-inline">
+    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">Top</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="left" title="Hooray!">Left</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
+  </ul>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+
+
+<footer role="contentinfo" class="footer">
+<i class="material-icons">favorite</i>Made with love for HTML5
+</footer>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>

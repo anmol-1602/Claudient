@@ -1,0 +1,19 @@
+.error_mssg{
+	font-size: xx-large;
+	font-style: italic;
+	font-weight:900;
+	color: #E81C1C;
+	padding: 1cm;
+	    display: block;
+	    text-align:center;
+
+
+}
+
+.loginbtn{
+	margin-top: 1cm;
+}
+
+.inp{
+	margin-bottom: 1cm;
+}

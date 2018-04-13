@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>these are all comments and their users </h1>
+<br>
+<br>
+
+{% for eachcomm in comments %}
+
+
+<h3>{{ eachcomm.user }}   </h3>
+<hr>
+<span>{{eachcomm.time|timesince }} minutes ago</span>
+<br>
+<h4>{{ eachcomm.content }}}</h4>
+<br><br>
+{% endfor %}
+
+</body>
+</html>
