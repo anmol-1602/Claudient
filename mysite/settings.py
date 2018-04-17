@@ -32,12 +32,12 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
+    'channels',
     'django.contrib.sites',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
 
     'classroom',
     'taskapp',
@@ -69,11 +69,12 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'classroom','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+              
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -155,32 +156,44 @@ LOGIN_REDIRECT_URL='/classroom/profile'
 ACCOUNT_LOGOUT_REDIRECT_URL='/classroom/'
 
 #login limit= 5 times
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT=10
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT=3
 
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_EMAIL_VERIFICATION="none"
+
+
 
 RECAPTCHA_PUBLIC_KEY = '6LdG7UwUAAAAANP-Lhj4V5Nq2HT04AO9c0Q7ARfM'
 RECAPTCHA_PRIVATE_KEY = '6LdG7UwUAAAAAPMJMDLGU7HP5pJC9UjM8DZRlSn8'
 NOCAPTCHA = True
 
-ACCOUNT_FORMS = {
-    'signup': 'myproject.forms.CustomSignupForm',
-}
+# ACCOUNT_FORMS = {
+#     'signup': 'myproject.forms.CustomSignupForm',
+# }
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'classroom.forms.SignupForm'
+
+# ACCOUNT_FORMS = {'signup': 'classroom.forms.MySignupForm'}   ---- Giving error
+
+# redis_host=os.environ.get('REDIS_HOST','localhost')
+
+# CHANNEL_LAYERS={
+#     "default":{
+#     "BACKEND":"asgi_redis.redisChannelLayer",
+#     "CONFIG":{
+#     "hosts":[(redis_host,6379)],
+#     },
+#     "ROUTING":"multichat.routing.channel_routing",
+#     },
+# }
 
 
-redis_host=os.environ.get('REDIS_HOST','localhost')
-
-CHANNEL_LAYERS={
-    "default":{
-    "BACKEND":"asgi_redis.redisChannelLayer",
-    "CONFIG":{
-    "hosts":[(redis_host,6379)],
-    },
-    "ROUTING":"multichat.routing.channel_routing",
-    },
-}
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 #http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Ffacebook%2Flogin%2Fcallback%2F&scope=email
 #http://localhost:8000/accounts/facebook/login/callback/&scope=email
 #http://localhost:8000/accounts/facebook/login/callback/&scope=email&response_type=code
+
+
+ASGI_APPLICATION = "mysite.routing.application"

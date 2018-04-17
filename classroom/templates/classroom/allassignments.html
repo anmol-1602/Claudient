@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>dqded</h1>
+{% for eachassignment in assignments %}
+{{ eachassignment.subject }}
+
+<div><a href="{{ eachassignment.upload.url }}">{{ eachassignment.upload }}</a></div>
+<img src="{{ eachassignment.upload.url }}">
+<br>
+<div><img src="{{ eachassignment.upload.url }}"></div>
+{% endfor %}
+
+</body>
+</html>

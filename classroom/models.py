@@ -21,6 +21,9 @@ class reply(models.Model):
 	par_id=models.ForeignKey(doubt,on_delete=models.CASCADE)
 	time=models.DateTimeField(auto_now_add=True)
 
-
-
-
+class assignment(models.Model):
+	user=models.ForeignKey(User,on_delete=models.CASCADE)
+	subject=models.CharField(max_length=30,null=False)
+	time=models.DateTimeField(auto_now_add=True)
+	upload=models.FileField(upload_to='upload/')
+	complete=models.BooleanField(default=False)

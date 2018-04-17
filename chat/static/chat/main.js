@@ -13,6 +13,7 @@ $(function () {
         console.log("Disconnected from chat socket");
     };
 
+
     socket.onmessage = function (message) {
         // Decode the JSON
         console.log("Got websocket message " + message.data);

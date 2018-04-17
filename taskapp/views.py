@@ -67,6 +67,10 @@ def profile(request):
 @login_required
 def addtask(request):
 	
+	user=request.user
+	complete=usertask.objects.filter(owner=user,complete=True).order_by('-priority')
+	incomplete=usertask.objects.filter(owner=user,complete=False).order_by('-priority')
+
 	if request.method=='POST':
 		form=addtaskform(request.POST,request.FILES)
 
@@ -81,13 +85,13 @@ def addtask(request):
 			newtask.save()
 						#id is allotedonly after save not create *
 			
-			return redirect('taskapp:tasks')
+			return redirect('taskapp:addtask')
 
 		else:
 			return redirect('taskapp:addtask')
 	else:
 		form=addtaskform()
-		return render(request,'taskapp/addtask.html',{'form':form})
+		return render(request,'taskapp/addtask.html',{'user':user,'complete':complete,'incomplete':incomplete,'form':form})
 
 @login_required
 def tasks(request):
@@ -95,10 +99,34 @@ def tasks(request):
 	
 	complete=usertask.objects.filter(owner=user,complete=True).order_by('-priority')
 	incomplete=usertask.objects.filter(owner=user,complete=False).order_by('-priority')
-	form=edittaskform()
-	context={'user':user,'complete':complete,'incomplete':incomplete,'form':form}
+	
+	#context={'user':user,'complete':complete,'incomplete':incomplete,'form':form}
 
-	return render(request,'taskapp/tasks.html',context)
+	if request.method=='POST':
+		form2=addtaskform(request.POST,request.FILES)
+		form1=edittaskform()
+		if form2.is_valid():
+			
+			content=form2.cleaned_data['content']
+			pic=form2.cleaned_data['upload']
+			newtask=usertask(content=content,owner=request.user,upload=pic)
+			# uid=newtask.id // GIVES NONE
+			newtask.save()
+			newtask.priority=newtask.id 
+			newtask.save()
+
+			return redirect('taskapp:tasks')
+		else:
+			form2=addtaskform(request.POST,request.FILES)
+			form1=edittaskform()
+			return redirect('taskapp:tasks')
+	
+	
+	form2=addtaskform()
+	form1=edittaskform()
+	return render(request,'taskapp/tasks.html',{'form2':form2,'user':user,'complete':complete,'incomplete':incomplete,'form1':form1})			
+
+	#return render(request,'taskapp/tasks.html',context)
 	
 def moveup(request,prid):
 	task=usertask.objects.get(priority=prid)
@@ -109,7 +137,7 @@ def moveup(request,prid):
 	task.priority=temp
 	task.save()
 	task2.save()
-	return HttpResponseRedirect(reverse('taskapp:tasks'))
+	return HttpResponseRedirect(reverse('taskapp:addtask'))
 
 def movedown(request,prid):
 	task=usertask.objects.get(priority=prid)
@@ -119,21 +147,21 @@ def movedown(request,prid):
 	task.priority=temp
 	task.save()
 	task2.save()
-	return HttpResponseRedirect(reverse('taskapp:tasks'))
+	return HttpResponseRedirect(reverse('taskapp:addtask'))
 
 
 def complete(request,taskid):
 	task=usertask.objects.get(id=taskid)
 	task.complete=True
 	task.save()
-	return HttpResponseRedirect(reverse('taskapp:tasks'))
+	return HttpResponseRedirect(reverse('taskapp:addtask'))
 
 
 def incomplete(request,taskid):
 	task=usertask.objects.get(id=taskid)
 	task.complete=False
 	task.save()
-	return HttpResponseRedirect(reverse('taskapp:tasks'))
+	return HttpResponseRedirect(reverse('taskapp:addtask'))
 
 def edittask(request,taskid):
 	if request.method=='POST':

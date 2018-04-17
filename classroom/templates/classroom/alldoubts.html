@@ -395,8 +395,8 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
+                                    <div class="huge">{{ noofreplies }}</div>
+                                    <div>{{ noofreplies }}</div>
                                 </div>
                             </div>
                         </div>
@@ -417,8 +417,8 @@
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
+                                    <div class="huge">{{ noofdoubts }}</div>
+                                    <div>{{ noofdoubts }}</div>
                                 </div>
                             </div>
                         </div>
@@ -482,13 +482,13 @@
 
 <div>
 
-<h3>{{ eachdoubt.user }}<i class="material-icons comment-reply-btn">reply</i> <i class="fa fa-reply" style="color:red"></i>
+<h3>{{ eachdoubt.question }}<i class="material-icons comment-reply-btn">reply</i> <i class="fa fa-reply" style="color:red"></i>
 
 <hr></h3>   
 <span>{{eachdoubt.time|timesince }} minutes ago</span>
 <br>
-<h4>subject : {{ eachdoubt.subject  }} </h4>
-<h4>question : {{ eachdoubt.question }}</h4>
+<h4>subject: {{ eachdoubt.subject  }} </h4>
+<h4>Asked by: {{ eachdoubt.user }}</h4>
 <br><br>
 </div>
 <div class="comment-reply">
@@ -496,7 +496,7 @@
 <h5>{{ eachreply.content }}</h5>
 {% endfor %}
 
-<form method="post" action="{% url 'classroom:postreply' eachdoubt.id %}">
+<form method="post" id="postreply" >
 {% csrf_token %}
 {{ form.as_p }}
  <button type="submit">reply</button>
@@ -506,6 +506,10 @@
 
 {% endfor %}
 
+
+<a href="{% url 'classroom:doubts' %}"><button>new doubt</button></a>
+
+<br><br>
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-4">
                     
@@ -665,6 +669,32 @@
     $(this).parent().parent().next(".comment-reply").fadeToggle();
     });
 });
+
+   
+        </script>
+
+
+
+<script type="text/javascript">
+    
+    $('document').on("submit",'#postreply',function(e){
+        e.preventDefault();
+        var user={{ user }}
+        var doubtid=eachdoubt.id
+        $.ajax({
+            type:'POST',
+            url:'/postreply/',
+            data:{
+                content:$('#content').val(),
+                user: $(user),
+                par_id: $(doubtid),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success.function(){
+
+            }
+        });
+    });
 </script>
 
 </body>

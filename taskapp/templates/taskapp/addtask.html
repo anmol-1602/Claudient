@@ -1,20 +1,4 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<title></title>
-</head>
-<body>
 
-<form enctype="multipart/form-data" method="POST" >
-{% csrf_token %}
-{{ form.as_p }}
-{{ profile_form.as_p}} -->
-<!--<button type="submit">upload</button>
-
-</form>
-
-</body>
-</html> -->
 
 {% load static %}
 
@@ -23,22 +7,9 @@
 <html>
 <head>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
-<!-- <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script> -->
-<script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
 <meta charset='UTF-8'>
 <meta name="robots" content="noindex">
-<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
-<link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-<link rel="canonical" href="https://codepen.io/dishantsoni/pen/pgVeQW?limit=all&page=46&q=draggable" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
-
 
 <title></title>
 
@@ -48,7 +19,7 @@
 <body>
 
 
-<h1>complete</h1>
+<!-- <h1>complete</h1>
 {% for eachtask in complete %}
 
 <h2>{{ eachtask.content }} </h2>
@@ -79,8 +50,8 @@
 {{ eachtask.pub_date }}
 <div>{{ eachtask.upload }}</div>
 
-
-<div class="container">
+ -->
+<!-- <div class="container">
   <h2>edit task</h2>
   <button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#popUpWindow">open popup</button>
   <div class="modal fade" id="popUpWindow" role="dialog"> 
@@ -103,12 +74,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<br>
-{% endfor %}
-
-
+<!-- <br>
+{% endfor %} -->
 
 
 
@@ -116,153 +85,639 @@
 
 
 
-<header class="page-title">
+
+
+<!-- <header class="page-title">
 <h1>  <i class="material-icons"></i>
 TODO</h1>
 <div class="tag"> An easy way to manage your work. <span class="caret">|</span></div>
+</header> -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<!DOCTYPE html><html lang='en' class=''>
+<head>
+<style class="cp-pen-styles">body {
+  font-family: 'Muli', Sans-serif;
+  margin: 0;
+  /*  background-image:url('http://www.webxsystems.com/Images/Site/Sliders/bg-blur.jpg'); */
+  background-image: url('http://orig00.deviantart.net/acb6/f/2013/303/7/6/gif___running_through_the_rain_by_turst67-d6scius.gif');
+  background-size: cover;
+}
+
+@media screen and (max-width: 50em) {
+  body {
+    font-size: large;
+  }
+}
+
+@media screen and (max-width: 40em) {
+  body {
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 30em) {
+  body {
+    font-size: smaller;
+  }
+}
+
+.page-title {
+  padding: 15px;
+  color: #22313F;
+  font-size: 1.6em;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-title h1 {
+  margin: 0;
+}
+
+.page-title .tag {
+  padding: 0;
+  color: #3A539B;
+  font-weight: bold;
+  font-size: .7em;
+  width: 18em;
+  animation: type 2s steps(200, end);
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.tag .caret {
+  animation: blink 1s;
+}
+
+@keyframes type {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  to {
+    opacity: .0;
+  }
+}
+
+.page-title [class*=icon] {
+  font-size: 1em;
+  color: #26A65B;
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+.opaque {
+  opacity: 0.4;
+}
+
+.main-wrap {
+  border: solid 1px #2c3033;
+  max-width: 350px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 500;
+  max-height: 450px;
+  background: #22313F;
+  color: #fff;
+  opacity: .9;
+}
+
+.hidden {
+  display: none;
+}
+
+.app-header {
+  width: 100%;
+  height: 50px;
+  background-color: #2980b9;
+  font: bold 18px/50px arial;
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+.main-content {
+  padding: 15px 30px;
+}
+
+#todoForm {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+
+/* Row */
+
+div.row {
+  margin: 0 10px;
+  padding: 10px 0;
+}
+
+.row.submit-btn {
+  min-width: 150px;
+}
+
+
+/** Form Elements **/
+
+label {
+  display: block;
+  font-size: 1.2em;
+}
+
+input,
+select,
+textarea {
+  border-radius: 3px;
+  border: 1px solid #aebdc1;
+  box-sizing: border-box;
+  font-size: 1em;
+  padding: 0.625em;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+  min-width: 250px;
+}
+
+.primary-button {
+  width: 100%;
+  font-size: 1.2em;
+  margin: 0;
+  display: block;
+  color: #fff;
+  background-color: #2980b9;
+  border-color: #48c9b0;
+  box-shadow: none;
+  border: none;
+  padding: 15px 0;
+  max-width: 250px;
+}
+
+.todo-list-container {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  /*box-shadow: 0 -5px 10px rgba(0, 0, 0, .08);*/
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.todo-list-container .todo-in-progress {
+  flex: 2 1 600px;
+  width: 60%;
+}
+
+.todo-in-progress h2 {
+  color: #8F1D21;
+}
+
+.todo-list-container .todo-completed {
+  flex: 1 1 300px;
+  /*background: #cecece;*/
+  color: #8F1D21;
+  opacity: .8;
+  width: 30%;
+}
+
+.todo-list-completed {
+  padding: 0;
+}
+
+.todo-list {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.todo-list .todo-item {
+  will-change: transform;
+  position: relative;
+  background-color: #fafafa;
+  flex: 1 1 calc(48% - 40px);
+  -webkit-transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.3), 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+  padding: 0 20px 0 20px;
+  margin: 15px 2% 15px 0;
+  min-width: 260px;
+}
+
+.todo-item.over {
+  border: 2px dashed #000;
+}
+
+.todo-item .todo-description {
+  line-height: 1.2em;
+  font-size: 1em;
+  width: 85%;
+}
+
+.todo-item.done .todo-description {
+  text-decoration: line-through;
+}
+
+.todo-item .todo-title {
+  color: white;
+  margin: 0 -20px;
+  padding: 15px 20px;
+  font-size: 1.2em;
+  line-height: 2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.todo-item .todo-title .icon-checkbox {
+  display: none;
+}
+
+.todo-item .todo-title:hover .icon-checkbox-outline {
+  display: none;
+}
+
+.todo-item .todo-title:hover .icon-checkbox {
+  display: block;
+}
+
+.todo-item .todo-priority {
+  -webkit-appearance: none;
+  font-size: 1em;
+  text-shadow: none;
+  line-height: 1.2em;
+  border-radius: 3px;
+  border: 3px solid #fff;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 3px 5px;
+}
+
+.todo-item.new {
+  border: 2px dashed darkblue;
+  flex: 2 1 1;
+}
+
+.new .todo-title {
+  background-color: #2980b9;
+  cursor: pointer;
+  padding: 40px 20px;
+  font-size: 1.2em;
+}
+
+.todo-item .pad-15 {
+  padding: 15px;
+}
+
+.high .todo-title,
+.high .todo-priority,
+.high [class*='icon'] {
+  background-color: #cd4436;
+}
+
+.medium .todo-title,
+.medium .todo-priority,
+.medium [class*='icon'] {
+  background-color: #2ac56c;
+}
+
+.low .todo-title,
+.low .todo-priority,
+.low [class*='icon'] {
+  background-color: #f19f0f;
+}
+
+.todo-list .icon-delete {
+  position: absolute;
+  right: 0px;
+  text-decoration: none;
+  padding: 0 10px;
+  cursor: pointer;
+  color: #fff;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.todo-list .icon-delete:hover::after {
+  color: #fff;
+}
+
+.todo-list .icon-delete:hover::before {
+  opacity: 1;
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(1);
+  -moz-transform: translateX(-50%) translateY(-50%) scale(1);
+  transform: translateX(-50%) translateY(-50%) scale(1);
+  z-index: -1;
+}
+
+.todo-list .icon-delete::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  content: '';
+  opacity: 0;
+  background: #000;
+  color: white;
+  z-index: -1;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(0.2);
+  -moz-transform: translateX(-50%) translateY(-50%) scale(0.2);
+  transform: translateX(-50%) translateY(-50%) scale(0.2);
+}
+
+.todo-list-completed .todo-item {
+  color: darkgrey;
+  font-weight: bold;
+  border-bottom: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  position: relative;
+}
+
+.todo-list-completed .icon-delete {
+  display: none;
+  cursor: pointer;
+}
+
+.todo-list-completed .todo-item:hover .icon-check {
+  display: none;
+}
+
+.todo-list-completed .todo-item:hover .icon-delete {
+  display: block;
+}
+
+.todo-list-completed .todo-item .content {
+  padding: 15px 10px;
+  flex: 1;
+  font-size: 1.2em;
+  text-decoration: line-through;
+}
+
+
+/** TODO List **/
+
+li {
+  list-style-type: none;
+}
+
+
+/** Footer **/
+
+.footer {
+  font-size: 1.5em;
+  color: #D2527F;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 0;
+  text-align: center;
+  opacity: .6;
+  background-color: #22313F;
+}
+
+.footer [class*=icon] {
+  font-size: 1.4em;
+  padding: 10px 10px;
+  line-height: 1.5em;
+  vertical-align: sub;
+}
+
+span.action {
+  float: left;
+  margin: 0 15px 0 0;
+}
+
+
+/** font icons **/
+
+
+/* Rules for sizing the icon. */
+
+.material-icon .material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+
+/* Rules for using icons as black on a light background.*/
+
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.todo-item.done .material-icons.md-dark,
+.material-icons.md-dark:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.material-icons.md-dark:hover {
+  -webkit-animation: spin .8s ease-in-out 1;
+  -moz-animation: spin .8s ease-in-out 1;
+  animation: spin .8s ease-in-out 1;
+}
+
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style></head><body>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:300' rel='stylesheet' type='text/css'>
+
+<header class="page-title">
+  <h1>  <i class="material-icons">view_list</i>
+        TODO</h1>
+  <div class="tag"> An easy way to manage your work. <span class="caret">|</span></div>
 </header>
 
 <main role="main" class="main-wrap hidden">
 
-<header role="heading" class="header">
-<h1 class="app-header"> Add your task </h1>
-</header>
+  <header role="heading" class="header">
+    <h1 class="app-header"> Add your task </h1>
+  </header>
 
-<section class="main-content">
-<section class="todo-form">
+  <section class="main-content">
+    <section class="todo-form">
 
-<form role="form" id="todoForm">
-<div class="row">
-<label for="title"> Title </label>
-<input class="form-input" id="title" type="text" placeholder="Learn JavaScript" />
-</div>
+      <form role="form" id="todoForm">
+        <div class="row">
+          <label for="title"> Title </label>
+          <input class="form-input" id="title" type="text" placeholder="Learn JavaScript" />
+        </div>
 
-<div class="row">
-<label for="description"> Description </label>
-<textarea id="description" rows="4" cols="30" placeholder="Coz you already know Java"></textarea>
-</div>
+        <div class="row">
+          <label for="description"> Description </label>
+          <textarea id="description" rows="4" cols="30" placeholder="Coz you already know Java"></textarea>
+        </div>
 
-<div class="row">
-<label for="priority"> Priority </label>
-<select id="priority">
-<option value="high">High</option>
-<option value="med">Medium</option>
-<option value="low">Low</option>
-</select>
-</div>
+        <div class="row">
+          <label for="priority"> Priority </label>
+          <select id="priority">
+            <option value="high">High</option>
+            <option value="med">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
 
-<div class="row submit-btn">
-<input type="submit" class="primary-button" value="DO IT" />
-</div>
-</form>
+        <div class="row submit-btn">
+          <input type="submit" class="primary-button" value="DO IT" />
+        </div>
+      </form>
 
-</section>
+    </section>
 
 
-</section>
+  </section>
 </main>
 
 <section class="todo-list-container">
-<div class="todo-in-progress">
-<h2> Working tasks</h2>
-<ul ondragstart="" class="todo-list" id="target">
+  <div class="todo-in-progress">
+    <h2> Working tasks</h2>
+    <ul ondragstart="" class="todo-list" id="target">
 
-<li draggable="true" class="todo-item high">
-<div class="card">
+{% for eachtask in incomplete %}
+      <li draggable="true" class="todo-item high">
+        <div class="card">
 
-<h3 class="todo-title"> <span class="action">
-<i class="material-icons md-36 icon-delete">delete</i>
-<i class="icon-checkbox-outline material-icons md-36 md-dark">check_box_outline_blank</i>
-<i class="icon-checkbox material-icons md-36 md-light">check_box</i>
-</span> 
-<span class="title">Learn React </span></h3>
+          <h3 class="todo-title"> 
+            <span class="action">
+              <!-- <i class="material-icons md-36 icon-delete">delete</i> -->
+               <a href=""> <i class="material-icons md-36 icon-delete pad-15 material-icons md-36 md-light">delete</i>  </a>
 
-<p class="todo-description">
+              <!-- <i class="icon-checkbox-outline material-icons md-36 md-dark">check_box_outline_blank</i> -->
+              <!-- <i class="icon-checkbox material-icons md-36 md-light">check_box</i> -->
+              <a href="{% url 'taskapp:complete' eachtask.id %}"><i class="icon-checkbox-outline material-icons md-36 md-dark">check_box_outline_blank</i><i class="icon-checkbox material-icons md-36 md-light">check_box</i></a>
+            </span> 
+          <span class="title">{{ eachtask.content }}</span></h3>
 
-Build great modularize javascript apps with React JS. </p>
-<span class="todo-priority"> High </span>
+          <p class="todo-description">
 
-</div>
+           {{ eachtask.pub_date }}  </p>
+          <span class="todo-priority"> High </span>
 
-</li>
+        </div>
 
+      </li>
+ {% endfor %}
+
+
+
+<!-- <h1>complete</h1>
 {% for eachtask in complete %}
 
-<li>
 <h2>{{ eachtask.content }} </h2>
  <a href=""> <i class="pad-15 material-icons md-36 md-light">delete</i>  </a>
 <a href="{% url 'taskapp:moveup' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_less</i></a>
 <a href="{% url 'taskapp:movedown' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">expand_more</i></a>
 <a href="{% url 'taskapp:incomplete' eachtask.id %}"><i class="material-icons" style="font-size:48px;color:red">close</i></a>
 
-{{ eachtask.pub_date}}
 
+{{ eachtask.pub_date}}
 <br>
-</li>
 {% endfor %}
 
-
-<li class="todo-item new">
-<div class="card">
-
-<h3 class="todo-title"> <span class="action">
-<i class="complete material-icons md-36 md-light">add_circle_outline</i>
-</span> 
-<a class="title" href="#">ADD A TODO</span></h3>
-
-</div>
-
-</li>
+ -->
 
 
-</ul>
-</div>
+    </ul>
+  </div>
 
-<div class="todo-completed">
-<ul class="todo-list-completed">
-<h2> Completed Tasks </h2>
-<li class="todo-item high">
-<div class="icon-check">
-<i class="pad-15 material-icons md-36 md-light">check_circle</i>
-</div>
+  <div class="todo-completed">
+    <ul class="todo-list-completed">
+      <h2> Completed Tasks </h2>
 
-<div class="icon-delete">
-<i class="pad-15 material-icons md-36 md-light">delete</i>
-</div>
-<div class="content">
-Learn React
-</div>
-</li>
-<li class="todo-item medium">
-<div class="icon-check">
-<i class="pad-15 material-icons md-36 md-light">check_circle</i>
-</div>
-<div class="icon-delete">
-<i class="pad-15 material-icons md-36 md-light">delete</i>
-</div>
-<div class="content">
-Learn React
-</div>
-</li>
-<li class="todo-item low">
-<div class="icon-check">
-<i class="pad-15 material-icons md-36 md-light">check_circle</i>
-</div>
+{% for eachtask in complete %}
 
-<div class="icon-delete">
-<i class="pad-15 material-icons md-36 md-light">delete</i>
-</div>
-<div class="content">
-Learn React
-</div>
-</li>
-</ul>
-</div>
+      <li class="todo-item high">
+        <div class="icon-check">
+        
+         <i class="pad-15 material-icons md-36 md-light">check_circle</i> 
+        </div>
+
+        <div class="icon-delete">
+          <a href="{% url 'taskapp:incomplete' eachtask.id %}"><i class="pad-15 material-icons md-36 md-light material-icons" style="font-size:48px;color:red">close</i></a>
+        </div>
+        <div class="content">
+          {{ eachtask.content }}
+        </div>
+      </li>
+
+ {% endfor %}
+      
+    </ul>
+  </div>
 </section>
 
+
+
+<br>
+<br>
+
+
 <div class="container">
-	<h2>modal eg</h2>
-	<button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#popUpWindow">open popup</button>
+<!-- 	<h2>modal eg</h2> -->
+	<button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#popUpWindow">Add a new task</button>
 
 	<div class="modal fade" id="popUpWindow" role="dialog"> 
 		<div class="modal-dialog">
@@ -283,70 +738,36 @@ Learn React
 					</div>
 				</div >
 
-				<div class="modal-footer">
+				<!-- <div class="modal-footer">
 					<button class="btn btn-primary btn-block">login</button>
-				</div>
+				</div> -->
 
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="container">
-  <h2>Modal Example</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
 
 
 
-<div class="container">
-  <h3>Tooltip Example</h3>
-  <p>The data-placement attribute specifies the tooltip position.</p>
-  <ul class="list-inline">
-    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">Top</a></li>
-    <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a></li>
-    <li><a href="#" data-toggle="tooltip" data-placement="left" title="Hooray!">Left</a></li>
-    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
-  </ul>
-</div>
+<!-- 
 
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();   
 });
-</script>
+</script> -->
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
 <footer role="contentinfo" class="footer">
-<i class="material-icons">favorite</i>Made with love for HTML5
+  <i class="material-icons">favorite</i>Made with love for HTML5
 </footer>
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 
 
 
