@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
-    'channels',
+    
     'django.contrib.sites',
 
     'allauth',
@@ -171,21 +172,12 @@ NOCAPTCHA = True
 #     'signup': 'myproject.forms.CustomSignupForm',
 # }
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'classroom.forms.SignupForm'
 
-# ACCOUNT_FORMS = {'signup': 'classroom.forms.MySignupForm'}   ---- Giving error
 
-# redis_host=os.environ.get('REDIS_HOST','localhost')
 
-# CHANNEL_LAYERS={
-#     "default":{
-#     "BACKEND":"asgi_redis.redisChannelLayer",
-#     "CONFIG":{
-#     "hosts":[(redis_host,6379)],
-#     },
-#     "ROUTING":"multichat.routing.channel_routing",
-#     },
-# }
+# ACCOUNT_SIGNUP_FORM_CLASS = 'classroom.forms.SignupForm'
+# ACCOUNT_ADAPTER = 'mysite.users.adapter.UserAccountAdapter'
+# ACCOUNT_ADAPTER = 'api.adapter.UserAccountAdapter'
 
 
 MEDIA_URL = '/media/'
@@ -195,5 +187,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 #http://localhost:8000/accounts/facebook/login/callback/&scope=email
 #http://localhost:8000/accounts/facebook/login/callback/&scope=email&response_type=code
 
-
-ASGI_APPLICATION = "mysite.routing.application"
